@@ -1,18 +1,16 @@
 import React from 'react';
-import PostsContainer from './components/PostsContainer/PostsContainer';
-import SelectedPost from './components/SelectedPost/SelectedPost';
+import { PostsContainer } from './components/PostsContainer/PostsContainer';
+import { SelectedPost } from './components/SelectedPost/SelectedPost';
 import './App.css';
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoaded: false,
-      items: [],
-      selectedId: null,
-    };
-  }
+  state = {
+    isLoaded: false,
+    items: [],
+    selectedId: undefined,
+    selectedPost: undefined,
+  };
 
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/posts')
@@ -21,13 +19,9 @@ class App extends React.Component {
       })
       .then(
         (result) => {
-          const items = result.map((res) => {
-            res.isFavorite = false;
-            return res;
-          });
           this.setState({
             isLoaded: true,
-            items: items,
+            items: result,
           });
         },
         (error) => {
@@ -35,27 +29,30 @@ class App extends React.Component {
         });
   }
 
-  updateLists = (id) => {
+  updateLists = (e, id) => {
+    e.preventDefault();
+    e.stopPropagation();
     this.setState((prevState) => {
-      const updatedItems = prevState.items.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            isFavorite: !item.isFavorite,
-          };
-        }
-        return item;
-      });
       return {
-        items: updatedItems,
+        items: prevState.items.map((item) => item.id === id ? { ...item, isFavorite: !item.isFavorite } : item),
       };
     });
   };
 
   showPost = (id) => {
-    this.setState(() => {
-      return { selectedId: id };
-    });
+    this.setState({ selectedId: id });
+  };
+
+  isLoaded = () => {
+    return this.state.isLoaded;
+  };
+
+  getItems = (isFavorite) => {
+    return this.state.items.filter((item) => !!item.isFavorite === isFavorite);
+  };
+
+  getSelectedPost = () => {
+    return this.state.items.filter((item) => item.id === this.state.selectedId).shift();
   };
 
   render() {
@@ -63,18 +60,18 @@ class App extends React.Component {
       <div className="App">
         <div className="main-content-container">
           <PostsContainer
-            isLoaded={ this.state.isLoaded }
-            data={ this.state.items.filter((item) => item.isFavorite === false) }
+            isLoaded={ this.isLoaded() }
+            items={ this.getItems(false) }
             cssClass={ 'posts-container' }
             onUpdateList={ this.updateLists }
             onShowSelectedPost={ this.showPost }
           />
           <SelectedPost
-            post={ this.state.items.filter((item) => item.id === this.state.selectedId) }
+            post={ this.getSelectedPost() }
           />
         </div>
-        <PostsContainer isLoaded={ this.state.isLoaded }
-                        data={ this.state.items.filter((item) => item.isFavorite === true) }
+        <PostsContainer isLoaded={ this.isLoaded() }
+                        items={ this.getItems(true) }
                         cssClass={ 'favorite-posts-container' }
                         onUpdateList={ this.updateLists }
                         onShowSelectedPost={ this.showPost }

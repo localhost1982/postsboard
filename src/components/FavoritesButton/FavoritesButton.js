@@ -1,21 +1,8 @@
 import React from 'react';
+import './favorite-button.css'
 
-class FavoritesButton extends React.Component {
-
-  changeFavoriteState = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    this.props.onFavoriteClick();
-  };
-
-  render() {
-    const favMark = this.props.selected ? '\u2605' : '\u2606';
-    return (
-      <div className={ `fav-btn` } onClick={ this.changeFavoriteState }>
-        { favMark }
-      </div>
-    );
-  }
-}
-
-export default FavoritesButton;
+export const FavoritesButton = ({ onFavoriteClick, selected }) => (
+  <button className='fav-btn' onClick={ onFavoriteClick }>
+    { selected ? '\u2605' : '\u2606' }
+  </button>
+);

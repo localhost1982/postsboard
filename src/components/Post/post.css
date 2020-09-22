@@ -1,0 +1,17 @@
+.post {
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 10px 0;
+    text-align: left;
+    cursor: default;
+    min-width: 240px;
+}
+
+.post .h1-small {
+    font-size: 14px;
+    font-weight: 500;
+    color: #f02;
+    text-transform: capitalize;
+    max-width: 85%;
+}

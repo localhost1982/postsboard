@@ -1,0 +1,16 @@
+.fav-btn {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 2px 8px 4px;
+    border: 1px solid #ccc;
+    color: #55f;
+    background: transparent;
+}
+
+.fav-btn:focus {
+    outline: none;
+    opacity: 0.6;
+}

@@ -1,22 +1,15 @@
 import React from 'react';
+import './selected-post.css'
 
-class SelectedPost extends React.Component {
-
-  render() {
-    const currentPost = this.props.post.shift();
-    let title = '';
-    let body = '';
-    if (undefined !== currentPost) {
-      title = currentPost.title;
-      body = currentPost.body;
+export const SelectedPost = ({ post }) => (
+  <div className='selected-post'>
+    {
+      post ?
+        <>
+          <h1>{ post.title }</h1>
+          <p>{ post.body }</p>
+        </>
+      : ''
     }
-    return (
-      <div className={ 'selected-post' }>
-        <h1>{ title }</h1>
-        <p>{ body }</p>
-      </div>
-    );
-  }
-}
-
-export default SelectedPost;
+  </div>
+);
