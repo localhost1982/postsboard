@@ -9,9 +9,51 @@
 }
 
 .post .h1-small {
+    padding: 0 10px;
     font-size: 14px;
     font-weight: 500;
     color: #f02;
     text-transform: capitalize;
     max-width: 85%;
+}
+
+.post-header {
+    margin: -11px;
+    width: calc(100% + 22px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fav-btn {
+    top: -1px;
+    right: -1px;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 2px 8px 4px;
+    border: 1px solid #ccc;
+    color: #55f;
+    background: transparent;
+    align-self: flex-start;
+}
+
+.fav-btn:focus {
+    outline: none;
+    opacity: 0.6;
+}
+
+.view-btn {
+    top: 0;
+    left: 0;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 3px 1px;
+    border: 1px solid #ccc;
+    background: transparent;
+    align-self: flex-start;
+}
+
+.view-btn:focus {
+    outline: none;
+    opacity: 0.6;
 }

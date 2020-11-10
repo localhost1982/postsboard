@@ -2,14 +2,16 @@ import React from 'react';
 import { PostsContainer } from './components/PostsContainer/PostsContainer';
 import { SelectedPost } from './components/SelectedPost/SelectedPost';
 import './App.css';
+import { Modal } from "./components/Modal/Modal";
 
 class App extends React.Component {
 
   state = {
     isLoaded: false,
     items: [],
-    selectedId: undefined,
-    selectedPost: undefined,
+    selectedId: null,
+    selectedPost: null,
+    showModal: false
   };
 
   componentDidMount() {
@@ -26,7 +28,10 @@ class App extends React.Component {
         },
         (error) => {
           console.log(error);
-        });
+        })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   updateLists = (e, id) => {
@@ -34,17 +39,27 @@ class App extends React.Component {
     e.stopPropagation();
     this.setState((prevState) => {
       return {
-        items: prevState.items.map((item) => item.id === id ? { ...item, isFavorite: !item.isFavorite } : item),
+        items: prevState.items.map((item) => item.id === id ? {...item, isFavorite: !item.isFavorite} : item),
       };
     });
   };
 
   showPost = (id) => {
-    this.setState({ selectedId: id });
+    this.setState({selectedId: id, showModal: true});
   };
 
   isLoaded = () => {
     return this.state.isLoaded;
+  };
+
+  isShowModal = () => {
+    return this.state.showModal;
+  };
+
+  onClose = () => {
+    this.setState({
+      showModal: !this.state.showModal
+    });
   };
 
   getItems = (isFavorite) => {
@@ -58,6 +73,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <Modal
+          onClose={ this.onClose }
+          closeOnBackdropClick={ this.onClose }
+          showModal={ this.isShowModal() }>
+          <SelectedPost
+            post={ this.getSelectedPost() }
+          />
+        </Modal>
         <div className="main-content-container">
           <PostsContainer
             isLoaded={ this.isLoaded() }
@@ -65,9 +88,6 @@ class App extends React.Component {
             cssClass={ 'posts-container' }
             onUpdateList={ this.updateLists }
             onShowSelectedPost={ this.showPost }
-          />
-          <SelectedPost
-            post={ this.getSelectedPost() }
           />
         </div>
         <PostsContainer isLoaded={ this.isLoaded() }
