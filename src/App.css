@@ -1,20 +1,23 @@
+.body-fixed {
+    position: fixed;
+}
+
 div {
     box-sizing: border-box;
 }
 
-.App {
+.flex-container {
     text-align: center;
     display: flex;
 }
 
 .main-content-container {
     width: 80%;
-    height: calc(100vh - 30px);
-    margin: 10px;
+    margin: 0 10px;
 }
 
 @media (max-width: 680px) {
-    .App {
+    .flex-container {
         flex-wrap: wrap;
     }
 

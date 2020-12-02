@@ -3,6 +3,7 @@ import { PostsContainer } from './components/PostsContainer/PostsContainer';
 import { SelectedPost } from './components/SelectedPost/SelectedPost';
 import './App.css';
 import { Modal } from "./components/Modal/Modal";
+import { Search } from "./components/Search/Search";
 
 class App extends React.Component {
 
@@ -11,7 +12,8 @@ class App extends React.Component {
     items: [],
     selectedId: null,
     selectedPost: null,
-    showModal: false
+    showModal: false,
+    searchString: '',
   };
 
   componentDidMount() {
@@ -39,13 +41,14 @@ class App extends React.Component {
     e.stopPropagation();
     this.setState((prevState) => {
       return {
-        items: prevState.items.map((item) => item.id === id ? {...item, isFavorite: !item.isFavorite} : item),
+        items: prevState.items.map((item) => item.id === id ? { ...item, isFavorite: !item.isFavorite } : item),
       };
     });
   };
 
   showPost = (id) => {
-    this.setState({selectedId: id, showModal: true});
+    document.body.classList.add('body-fixed');
+    this.setState({ selectedId: id, showModal: true });
   };
 
   isLoaded = () => {
@@ -56,14 +59,27 @@ class App extends React.Component {
     return this.state.showModal;
   };
 
-  onClose = () => {
+  handleClose = () => {
+    document.body.classList.remove('body-fixed');
     this.setState({
       showModal: !this.state.showModal
     });
   };
 
-  getItems = (isFavorite) => {
-    return this.state.items.filter((item) => !!item.isFavorite === isFavorite);
+  getItems = (isFavorite, searchString) => {
+    const regEx = new RegExp(searchString.length >= 3 ? searchString : '', 'gmi')
+    return this.state.items.filter((item) => {
+      return !!item.isFavorite === isFavorite &&
+        ((regEx.test(item.title)) || (regEx.test(item.body.replace(/(?:\r\n|\r|\n)/g, ' '))));
+    });
+  };
+
+  getSearchString = () => {
+    return this.state.searchString;
+  };
+
+  searchPosts = (event) => {
+    this.setState({ searchString: event.target.value });
   };
 
   getSelectedPost = () => {
@@ -73,29 +89,40 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Modal
-          onClose={ this.onClose }
-          closeOnBackdropClick={ this.onClose }
-          showModal={ this.isShowModal() }>
-          <SelectedPost
-            post={ this.getSelectedPost() }
-          />
-        </Modal>
-        <div className="main-content-container">
+        <Search
+          value={ this.getSearchString() }
+          onChange={ this.searchPosts }
+        />
+        <div className="flex-container">
+          { this.isShowModal() &&
+          <Modal
+            onClose={ this.handleClose }
+            closeOnBackdropClick={ true }
+          >
+            <SelectedPost
+              post={ this.getSelectedPost() }
+            />
+          </Modal>
+          }
+          <div className="main-content-container">
+            <PostsContainer
+              isLoaded={ this.isLoaded() }
+              items={ this.getItems(false, this.getSearchString()) }
+              cssClass={ 'posts-container' }
+              onUpdateList={ this.updateLists }
+              onShowSelectedPost={ this.showPost }
+              highLiteText={ this.getSearchString() }
+            />
+          </div>
           <PostsContainer
             isLoaded={ this.isLoaded() }
-            items={ this.getItems(false) }
-            cssClass={ 'posts-container' }
+            items={ this.getItems(true, this.getSearchString()) }
+            cssClass={ 'favorite-posts-container' }
             onUpdateList={ this.updateLists }
             onShowSelectedPost={ this.showPost }
+            highLiteText={ this.getSearchString() }
           />
         </div>
-        <PostsContainer isLoaded={ this.isLoaded() }
-                        items={ this.getItems(true) }
-                        cssClass={ 'favorite-posts-container' }
-                        onUpdateList={ this.updateLists }
-                        onShowSelectedPost={ this.showPost }
-        />
       </div>
     );
   }

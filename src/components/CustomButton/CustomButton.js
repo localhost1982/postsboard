@@ -1,8 +1,8 @@
 import React from 'react';
 import './custom-button.css';
 
-export const CustomButton = ({callbackFunction, className, children, title}) => (
-  <button className={ className } onClick={ callbackFunction } title={ title }>
+export const CustomButton = ({ onClick, className, children, title }) => (
+  <button className={ className } onClick={ onClick } title={ title }>
     { children }
   </button>
 );
