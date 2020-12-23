@@ -1,9 +1,27 @@
+/**
+ * import core components
+ */
 import React from 'react';
-import { PostsContainer } from './components/PostsContainer/PostsContainer';
-import { SelectedPost } from './components/SelectedPost/SelectedPost';
+
+/**
+ * import custom components
+ */
+import {
+  Header,
+  Menu,
+  Modal,
+  PostsContainer,
+  Search,
+  SelectedPost
+} from "./components";
+
+
+/**
+ * import styles
+ */
 import './App.css';
-import { Modal } from "./components/Modal/Modal";
-import { Search } from "./components/Search/Search";
+import { Router } from "./routes/Router";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 class App extends React.Component {
 
@@ -88,42 +106,54 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <Search
-          value={ this.getSearchString() }
-          onChange={ this.searchPosts }
-        />
-        <div className="flex-container">
-          { this.isShowModal() &&
-          <Modal
-            onClose={ this.handleClose }
-            closeOnBackdropClick={ true }
-          >
-            <SelectedPost
-              post={ this.getSelectedPost() }
-            />
-          </Modal>
-          }
-          <div className="main-content-container">
-            <PostsContainer
-              isLoaded={ this.isLoaded() }
-              items={ this.getItems(false, this.getSearchString()) }
-              cssClass={ 'posts-container' }
-              onUpdateList={ this.updateLists }
-              onShowSelectedPost={ this.showPost }
-              highLiteText={ this.getSearchString() }
-            />
+        <BrowserRouter>
+          <div className="App">
+            <Header>
+              <Menu/>
+              <Search
+                value={ this.getSearchString() }
+                onChange={ this.searchPosts }
+              />
+            </Header>
+            <div className="main-content-container">
+              <Switch>
+                <Route path="/" exact>
+                  <PostsContainer
+                    isLoaded={ this.isLoaded() }
+                    items={ this.getItems(false, this.getSearchString()) }
+                    cssClass={ 'posts-container' }
+                    onUpdateList={ this.updateLists }
+                    onShowSelectedPost={ this.showPost }
+                    highLiteText={ this.getSearchString() }
+                  />
+                </Route>
+                <Route path="/favorites" exact>
+                  <PostsContainer
+                    isLoaded={ this.isLoaded() }
+                    items={ this.getItems(true, this.getSearchString()) }
+                    cssClass={ 'posts-container' }
+                    onUpdateList={ this.updateLists }
+                    onShowSelectedPost={ this.showPost }
+                    highLiteText={ this.getSearchString() }
+                  />
+                </Route>
+              </Switch>
+              <Router/>
+            </div>
+            { this.isShowModal() &&
+            <div className="flex-container">
+              <Modal
+                onClose={ this.handleClose }
+                closeOnBackdropClick={ true }
+              >
+                <SelectedPost
+                  post={ this.getSelectedPost() }
+                />
+              </Modal>
+            </div>
+            }
           </div>
-          <PostsContainer
-            isLoaded={ this.isLoaded() }
-            items={ this.getItems(true, this.getSearchString()) }
-            cssClass={ 'favorite-posts-container' }
-            onUpdateList={ this.updateLists }
-            onShowSelectedPost={ this.showPost }
-            highLiteText={ this.getSearchString() }
-          />
-        </div>
-      </div>
+        </BrowserRouter>
     );
   }
 }

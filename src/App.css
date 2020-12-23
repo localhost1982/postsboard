@@ -12,16 +12,11 @@ div {
 }
 
 .main-content-container {
-    width: 80%;
     margin: 0 10px;
 }
 
 @media (max-width: 680px) {
     .flex-container {
         flex-wrap: wrap;
-    }
-
-    .main-content-container {
-        width: 100%;
     }
 }
