@@ -1,16 +1,18 @@
 import React from 'react';
 import './modal.css';
 import { CustomButton } from "../CustomButton/CustomButton";
+import { connect } from "react-redux";
+import { hideModal, showModal } from "../../redux/actions";
 
-export const Modal = ({ children, onClose, closeOnBackdropClick }) => (
+const Modal = ({ children, hideModal }) => (
   <div className='modal-container active'>
-    <div className="modal-backdrop" onClick={ closeOnBackdropClick ? (e) => onClose(e) : null }>
+    <div className="modal-backdrop" onClick={ hideModal }>
     </div>
     <div className='modal'>
       <div className="close-button-container">
         <CustomButton
           className='close-btn'
-          onClick={ (e) => onClose(e) }
+          onClick={ hideModal }
           title='Close'>
           &times;
         </CustomButton>
@@ -19,3 +21,10 @@ export const Modal = ({ children, onClose, closeOnBackdropClick }) => (
     </div>
   </div>
 );
+
+const mapDispatchToProps = {
+  showModal,
+  hideModal,
+}
+
+export default connect(null, mapDispatchToProps)(Modal);

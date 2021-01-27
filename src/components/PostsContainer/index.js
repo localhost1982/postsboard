@@ -1,1 +1,0 @@
-export { PostsContainer } from './PostsContainer';
