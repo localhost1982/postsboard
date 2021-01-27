@@ -5,22 +5,8 @@ import {
   SEARCH_POSTS,
   SHOW_LOADER,
   SHOW_MODAL,
-  TOGGLE_FAVORITES
-} from "./actionTypes";
-
-export function fetchPosts() {
-  return async dispatch => {
-    try {
-      dispatch(showLoader());
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-      const json = await response.json();
-      dispatch({ type: GET_POSTS, payload: json });
-      dispatch(hideLoader());
-    } catch (e) {
-      dispatch(hideLoader());
-    }
-  };
-}
+  TOGGLE_FAVORITES,
+} from './actionTypes';
 
 export function showLoader() {
   return {
@@ -37,7 +23,7 @@ export function hideLoader() {
 export function toggleFavorites(post) {
   return {
     type: TOGGLE_FAVORITES,
-    payload: post
+    payload: post,
   };
 }
 
@@ -45,19 +31,33 @@ export function showModal(post) {
   return {
     type: SHOW_MODAL,
     payload: post,
-  }
+  };
 }
 
 export function hideModal() {
   return {
     type: HIDE_MODAL,
     payload: {},
-  }
+  };
 }
 
 export function searchPosts(text) {
   return {
     type: SEARCH_POSTS,
     payload: text,
-  }
+  };
+}
+
+export function fetchPosts() {
+  return async (dispatch) => {
+    try {
+      dispatch(showLoader());
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const json = await response.json();
+      dispatch({ type: GET_POSTS, payload: json });
+      dispatch(hideLoader());
+    } catch (e) {
+      dispatch(hideLoader());
+    }
+  };
 }
