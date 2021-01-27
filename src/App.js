@@ -20,7 +20,6 @@ import {
  * import styles
  */
 import './App.css';
-import { Router } from "./routes/Router";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 class App extends React.Component {
@@ -138,7 +137,6 @@ class App extends React.Component {
                   />
                 </Route>
               </Switch>
-              <Router/>
             </div>
             { this.isShowModal() &&
             <div className="flex-container">
