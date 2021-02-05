@@ -26,3 +26,9 @@ a:hover, a:active {
 .routing-link a {
     font-weight: 500;
 }
+
+a.active {
+    color: #000;
+    cursor: default;
+    pointer-events: none;
+}

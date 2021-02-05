@@ -1,10 +1,10 @@
 import React from 'react';
 import Post from '../Post/Post';
-import './post-container.css';
+import './favorites-post-container.css';
 import { Loader } from "../Loader";
 import { connect } from "react-redux";
 
-const PostsContainer = ({ posts, isLoading, searchString }) => {
+const FavoritesPostsContainer = ({ posts, isLoading, searchString }) => {
   if (searchString.length >= 3) {
     const regEx = new RegExp(searchString, 'gmi');
     posts = posts.filter(post => ((regEx.test(post.title)) || (regEx.test(post.body.replace(/(?:\r\n|\r|\n)/g, ' ')))))
@@ -12,16 +12,15 @@ const PostsContainer = ({ posts, isLoading, searchString }) => {
   return (
     !isLoading ?
       <div className='posts-container'>
-        { posts.length && posts.filter(post => post.isFavorite !== true).length ?
-          posts.filter(post => post.isFavorite !== true).map((post) => (
+        { posts.length && posts.filter(post => post.isFavorite === true).length ?
+          posts.filter(post => post.isFavorite === true).map((post) => (
             <Post
               post={ post }
               key={ post.id }
             />
-          ))
-          :
+          )) :
           <div className="not-found-message">
-            There are no regular posts
+            There are no favorites posts
           </div>
         }
       </div>
@@ -38,4 +37,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(PostsContainer);
+export default connect(mapStateToProps, null)(FavoritesPostsContainer);

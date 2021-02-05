@@ -7,7 +7,7 @@ export const Menu = () => {
   const getMenuItem = (menuItem, path) => {
     return (
       <li key={ menuItem } className='routing-link'>
-        <NavLink to={ path }>
+        <NavLink to={ path } activeClassName="active" exact>
           { menuItem }
         </NavLink>
       </li>
