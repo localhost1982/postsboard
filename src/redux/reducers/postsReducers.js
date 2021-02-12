@@ -1,4 +1,6 @@
-import { GET_FAVORITES_POSTS, GET_POSTS, HIDE_MODAL, SEARCH_POSTS, SHOW_MODAL, TOGGLE_FAVORITES } from "../actionTypes";
+import {
+  GET_FAVORITES_POSTS, GET_POSTS, HIDE_MODAL, SEARCH_POSTS, SHOW_MODAL, TOGGLE_FAVORITES,
+} from '../actionTypes';
 
 const initialState = {
   posts: [],
@@ -6,7 +8,7 @@ const initialState = {
   showSelectedPost: false,
   selectedPost: {},
   searchString: '',
-}
+};
 
 export const postsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,28 +18,27 @@ export const postsReducer = (state = initialState, action) => {
     case GET_FAVORITES_POSTS:
       return { ...state };
 
-    case TOGGLE_FAVORITES:
-      const posts = state.posts.slice().map(post => post.id === action.payload.id ?
-        {
+    case TOGGLE_FAVORITES: {
+      const posts = state.posts.map((post) => (post.id === action.payload.id
+        ? {
           ...post,
-          isFavorite: !post.isFavorite
-        } :
-        post
-      );
+          isFavorite: !post.isFavorite,
+        }
+        : post));
 
-      return { ...state, posts: posts };
+      return { ...state, posts };
+    }
 
     case SHOW_MODAL:
       return { ...state, showSelectedPost: true, selectedPost: action.payload };
 
     case HIDE_MODAL:
-      return { ...state, showSelectedPost: false, selectedPost: action.payload };
+      return { ...state, showSelectedPost: false };
 
     case SEARCH_POSTS:
-      return { ...state, searchString: action.payload }
+      return { ...state, searchString: action.payload };
 
     default:
       return state;
-
   }
-}
+};

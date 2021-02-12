@@ -1,8 +1,8 @@
-import { HIDE_LOADER, SHOW_LOADER } from "../actionTypes";
+import { HIDE_LOADER, SHOW_LOADER } from '../actionTypes';
 
 const initialState = {
   isLoading: false,
-}
+};
 
 export const appReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -13,4 +13,4 @@ export const appReducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
