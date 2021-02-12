@@ -30,10 +30,10 @@ const getHighlitedText = (text, textToHighlite) => {
 };
 
 export const Post = ({
-                       post: {
-                         id, title, body, isFavorite,
-                       },
-                     }) => {
+  post: {
+    id, title, body, isFavorite,
+  },
+}) => {
   const dispatch = useDispatch();
   const textToHighlite = useSelector((state) => state.posts.searchString);
 

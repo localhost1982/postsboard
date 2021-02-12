@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import './custom-button.css';
 
 export const CustomButton = ({
-                               onClick, className, children, title,
-                             }) => (
+  onClick, className, children, title,
+}) => (
   <button type="button" className={className} onClick={onClick} title={title}>
     {children}
   </button>
