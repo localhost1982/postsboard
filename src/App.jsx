@@ -35,8 +35,6 @@ export const App = () => {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  const isShowModal = () => showSelectedPost;
-
   return (
     <BrowserRouter>
       <div className="App">
@@ -47,7 +45,7 @@ export const App = () => {
         <div className="main-content-container">
           <Router />
         </div>
-        {isShowModal()
+        {showSelectedPost
         && (
           <div className="flex-container">
             <Modal>
