@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Post } from '../Post/Post';
 import './favorites-post-container.css';
-import { Loader } from '../Loader';
+import { Loader } from '../index';
 
 export const FavoritesPostsContainer = () => {
   let posts = useSelector((state) => state.posts.posts);

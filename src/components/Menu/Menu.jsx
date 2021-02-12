@@ -1,7 +1,9 @@
 import React from 'react';
-import './menu.css';
 import { NavLink } from 'react-router-dom';
+
 import { routes } from '../../routes/routes';
+
+import './menu.css';
 
 export const Menu = () => {
   const getMenuItem = (menuItem, path) => (

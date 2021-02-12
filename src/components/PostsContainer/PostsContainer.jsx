@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Post } from '../Post/Post';
+import { Post, Loader } from '../index';
+
 import './post-container.css';
-import { Loader } from '../Loader';
 
 export const PostsContainer = () => {
   let posts = useSelector((state) => state.posts.posts);
