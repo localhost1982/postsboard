@@ -1,6 +1,7 @@
 import React from 'react';
-import './selected-post.css';
 import { useSelector } from 'react-redux';
+
+import './selected-post.css';
 
 export const SelectedPost = () => {
   const selectedPost = useSelector((state) => state.posts.selectedPost);

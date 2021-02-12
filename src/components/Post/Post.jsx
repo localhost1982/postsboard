@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { CustomButton } from '../CustomButton';
+import { CustomButton } from '../index';
 import { showModal, toggleFavorites } from '../../redux/actions';
 
 import './post.css';

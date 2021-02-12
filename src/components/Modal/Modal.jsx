@@ -2,7 +2,8 @@ import React from 'react';
 import './modal.css';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { CustomButton } from '../CustomButton';
+
+import { CustomButton } from '../index';
 import { hideModal } from '../../redux/actions';
 
 export const Modal = ({ children }) => {

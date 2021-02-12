@@ -1,7 +1,8 @@
 import React from 'react';
-import './search.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchPosts } from '../../redux/actions';
+
+import './search.css';
 
 export const Search = () => {
   const searchString = useSelector((state) => state.posts.searchString);
