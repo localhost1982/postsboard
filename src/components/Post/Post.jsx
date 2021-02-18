@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { CustomButton } from '../index';
 import { showModal, toggleFavorites } from '../../redux/actions';
+import { generateUUID } from '../../helpers';
 
 import './post.css';
 
@@ -18,7 +19,7 @@ const getHighlitedText = (text, textToHighlite) => {
       {
         parts.map((part) => (
           <span
-            key={Math.floor(Math.random() * Math.floor(new Date().getTime()))}
+            key={generateUUID()}
             className={part.toLowerCase() === textToHighlite.toLowerCase() ? 'highlited' : ''}
           >
             {part}

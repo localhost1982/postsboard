@@ -9,6 +9,7 @@
     // "off" for Redux Dev tool
     "import/prefer-default-export": "off",
     // "off" for named export
+    "no-bitwise": "off",
     "no-param-reassign": [
       "error",
       {
