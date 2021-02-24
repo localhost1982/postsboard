@@ -20,7 +20,7 @@ import { Router } from './routes/Router';
 /**
  * import Redux actions
  */
-import { fetchPosts } from './redux/actions';
+import { fetchPosts } from './store/actions';
 
 /**
  * import styles

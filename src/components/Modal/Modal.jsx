@@ -3,8 +3,8 @@ import './modal.css';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { CustomButton } from '../index';
-import { hideModal } from '../../redux/actions';
+import { CustomButton } from 'components';
+import { hideModal } from 'store/actions';
 
 export const Modal = ({ children }) => {
   const dispatch = useDispatch();

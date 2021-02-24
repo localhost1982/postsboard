@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchPosts } from '../../redux/actions';
+
+import { searchPosts } from 'store/actions';
 
 import './search.css';
 
