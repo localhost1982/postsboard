@@ -1,5 +1,5 @@
-import { PostsContainer } from '../components/PostsContainer/PostsContainer';
-import { FavoritesPostsContainer } from '../components/FavoritesPostsContainer/FavoritesPostsContainer';
+import { FavoritesPostsContainer } from 'components/FavoritesPostsContainer';
+import { PostsContainer } from 'components/PostsContainer';
 
 export const routes = [
   { menuItem: 'Regular Posts', path: '/', component: PostsContainer },

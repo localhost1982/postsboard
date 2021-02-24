@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { CustomButton } from '../index';
-import { showModal, toggleFavorites } from '../../redux/actions';
-import { generateUUID } from '../../helpers';
+
+import { CustomButton } from 'components';
+import { generateUUID } from 'helpers';
+import { showModal, toggleFavorites } from 'store/actions';
 
 import './post.css';
 

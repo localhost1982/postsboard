@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Post, Loader } from '../index';
+
+import { Loader, Post } from 'components';
+import { searchPostsBySubstring } from 'helpers';
 
 import './post-container.css';
 
@@ -9,10 +11,8 @@ export const PostsContainer = () => {
   const isLoading = useSelector((state) => state.app.isLoading);
   const searchString = useSelector((state) => state.posts.searchString);
 
-  if (searchString.length >= 3) {
-    const regEx = new RegExp(searchString, 'gmi');
-    posts = posts.filter((post) => ((regEx.test(post.title)) || (regEx.test(post.body.replace(/(?:\r\n|\r|\n)/g, ' ')))));
-  }
+  posts = searchPostsBySubstring(searchString, posts);
+
   return (
     !isLoading
       ? (

@@ -4,6 +4,13 @@
     "react-app/jest",
     "airbnb"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
   "rules": {
     "no-underscore-dangle": "off",
     // "off" for Redux Dev tool

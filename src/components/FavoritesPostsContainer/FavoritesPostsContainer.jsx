@@ -1,18 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Post } from '../Post/Post';
+
+import { Loader, Post } from 'components';
+import { searchPostsBySubstring } from 'helpers';
+
 import './favorites-post-container.css';
-import { Loader } from '../index';
 
 export const FavoritesPostsContainer = () => {
   let posts = useSelector((state) => state.posts.posts);
   const isLoading = useSelector((state) => state.app.isLoading);
   const searchString = useSelector((state) => state.posts.searchString);
 
-  if (searchString.length >= 3) {
-    const regEx = new RegExp(searchString, 'gmi');
-    posts = posts.filter((post) => ((regEx.test(post.title)) || (regEx.test(post.body.replace(/(?:\r\n|\r|\n)/g, ' ')))));
-  }
+  posts = searchPostsBySubstring(searchString, posts);
+
   return (
     !isLoading
       ? (

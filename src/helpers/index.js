@@ -2,7 +2,7 @@
  * generate uuid4 for the key property
  * got from https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid
  */
-export function generateUUID() {
+export const generateUUID = () => {
   let d = new Date().getTime();
   // Time in microseconds since page-load or 0 if unsupported
   let d2 = (performance && performance.now && (performance.now() * 1000)) || 0;
@@ -17,4 +17,14 @@ export function generateUUID() {
     }
     return (c === 'x' ? r : ((r & 0x7) | 0x8)).toString(16);
   });
-}
+};
+
+export const searchPostsBySubstring = (searchString, posts) => {
+  let resultPosts = [...posts];
+  if (searchString.length >= 3) {
+    const regEx = new RegExp(searchString, 'gmi');
+    resultPosts = posts.filter((post) => ((regEx.test(post.title)) || (regEx.test(post.body.replace(/(?:\r\n|\r|\n)/g, ' ')))));
+  }
+
+  return resultPosts;
+};
