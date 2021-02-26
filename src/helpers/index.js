@@ -19,12 +19,12 @@ export const generateUUID = () => {
   });
 };
 
-export const searchPostsBySubstring = (searchString, posts) => {
-  let resultPosts = [...posts];
+export const getFilteredPosts = (searchString, posts) => {
   if (searchString.length >= 3) {
     const regEx = new RegExp(searchString, 'gmi');
-    resultPosts = posts.filter((post) => ((regEx.test(post.title)) || (regEx.test(post.body.replace(/(?:\r\n|\r|\n)/g, ' ')))));
+
+    return posts.filter((post) => ((regEx.test(post.title)) || (regEx.test(post.body.replace(/(?:\r\n|\r|\n)/g, ' ')))));
   }
 
-  return resultPosts;
+  return posts;
 };

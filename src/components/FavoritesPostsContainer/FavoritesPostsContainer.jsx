@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { Loader, Post } from 'components';
-import { searchPostsBySubstring } from 'helpers';
+import { getFilteredPosts } from 'helpers';
 
 import './favorites-post-container.css';
 
@@ -11,7 +11,7 @@ export const FavoritesPostsContainer = () => {
   const isLoading = useSelector((state) => state.app.isLoading);
   const searchString = useSelector((state) => state.posts.searchString);
 
-  posts = searchPostsBySubstring(searchString, posts);
+  posts = getFilteredPosts(searchString, posts);
 
   return (
     !isLoading
